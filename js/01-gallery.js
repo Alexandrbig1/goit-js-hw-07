@@ -33,19 +33,24 @@ function openModalPhotoOnClick(e) {
     <img src="${currentImage}" width="800" height="600">
 `,
     {
-      closable: false,
+      onShow: () => {
+        window.addEventListener("keydown", closeOnEscClick);
+      },
+      onClose: () => {
+        window.removeEventListener("keydown", closeOnEscClick);
+      },
     }
   );
-
-  if (e.target !== e.currentTarget)
-    instance.show(() => {
-      window.addEventListener("keydown", closeOnEscClick);
-    });
+  if (e.target !== e.currentTarget) instance.show();
 
   function closeOnEscClick(e) {
-    if (e.code === "Escape")
-      instance.close(() => {
-        window.removeEventListener("keydown", closeOnEscClick);
-      });
+    if (e.code === "Escape") instance.close();
   }
 }
+
+//     {
+//       closable: true,
+//       onShow: ()=>{}
+
+//       onClose: ()=>{}
+//     }
