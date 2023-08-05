@@ -17,13 +17,7 @@ function createImages(image) {
 
 imagesMenuEl.insertAdjacentHTML("beforeend", createImages(galleryItems));
 
-imagesMenuEl.addEventListener("click", openModalPhotoOnClick);
-
-function openModalPhotoOnClick(e) {
-  e.preventDefault();
-
-  const lightbox = new SimpleLightbox(".gallery__link", {
-    captionDelay: 250,
-    captionsData: "alt",
-  });
-}
+const lightbox = new SimpleLightbox(".gallery__link", {
+  captionDelay: 250,
+  captionsData: "alt",
+});

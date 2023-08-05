@@ -28,15 +28,24 @@ function openModalPhotoOnClick(e) {
   e.preventDefault();
 
   const currentImage = e.target.dataset.source;
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${currentImage}" width="800" height="600">
-`);
+`,
+    {
+      closable: false,
+    }
+  );
 
-  if (e.target !== e.currentTarget) instance.show();
-
-  window.addEventListener("keydown", closeOnEscClick);
+  if (e.target !== e.currentTarget)
+    instance.show(() => {
+      window.addEventListener("keydown", closeOnEscClick);
+    });
 
   function closeOnEscClick(e) {
-    if (e.code === "Escape") instance.close();
+    if (e.code === "Escape")
+      instance.close(() => {
+        window.removeEventListener("keydown", closeOnEscClick);
+      });
   }
 }
